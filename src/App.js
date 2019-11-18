@@ -34,7 +34,10 @@ class App extends Component {
       selected
     });
   };
-
+  handleClick = (feature, newValue) => {
+    this.setState({ selected: newValue });
+    console.log(feature);
+  };
   render() {
     const { features } = this.props;
     const featureTitle = Object.keys(features);
@@ -55,11 +58,20 @@ class App extends Component {
                 title={featureTitle[idx]}
                 options={featureOptions[idx]}
                 className="feature__item"
+                checked={
+                  featureOptions[idx].name === this.state.selected[feature].name
+                }
+                handleUpdate={(feature, newValue) =>
+                  this.updateFeature(feature, newValue)
+                }
               />
             ))}
           </div>
         </main>
-        <Cart features={featureTitle} />
+        <Cart
+          defaultValues={this.state.selected}
+          handleUpdate={() => this.updateFeature}
+        />
       </div>
     );
   }

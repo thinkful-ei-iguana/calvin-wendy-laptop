@@ -8,7 +8,7 @@ class Features extends React.Component {
   //   return this.features;
   // });
 
-  render(props) {
+  render() {
     return (
       <form className="main__form">
         <fieldset className="feature" key={this.featureHash}>
@@ -22,6 +22,7 @@ class Features extends React.Component {
               id={idx}
               name={option.name}
               cost={option.cost}
+              // updateFeature={this.props.handleUpdate}
             />
           ))}
         </fieldset>

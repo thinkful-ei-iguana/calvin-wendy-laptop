@@ -34,3 +34,14 @@ while keeping them available to the keyboard */
   width: 1px !important;
   overflow: hidden;
 }
+.feature__option:checked + .feature__label {
+  border: 0.2rem solid #0070c9;
+}
+
+.feature__option:focus + .feature__label {
+  box-shadow: 0 0 0 0.1rem #fff, 0 0 0 0.3rem #83c0fd;
+}
+
+.feature__option:not(:checked) + .feature__label {
+  cursor: pointer;
+}

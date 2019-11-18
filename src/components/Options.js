@@ -3,8 +3,8 @@ import "./Options.css";
 
 class Options extends Component {
   render() {
-    const { title } = this.props;
-    console.log(title);
+    const { title, name, cost } = this.props;
+
     let id = this.props.id;
 
     const USCurrencyFormat = new Intl.NumberFormat("en-US", {
@@ -13,9 +13,16 @@ class Options extends Component {
     });
     return (
       <div key={id} className="feature__item">
-        <input type="radio" id={title} name={title} value={title} />
-        <label htmlFor={title}>
-          {this.props.name} ({USCurrencyFormat.format(this.props.cost)})
+        <input
+          type="radio"
+          className="feature__option"
+          id={name}
+          name={title}
+          checked="true"
+          // onClick={(title, id) => this.handleClick(title, id)}
+        />
+        <label htmlFor={name} className="feature__label">
+          {name} ({USCurrencyFormat.format(cost)})
         </label>
       </div>
     );
