@@ -9,19 +9,22 @@ class Features extends React.Component {
   // });
 
   render() {
+    const { title, options, format } = this.props;
+    console.log(format);
     return (
       <form className="main__form">
-        <fieldset className="feature" key={this.featureHash}>
+        <fieldset className="feature" key={this.title}>
           <legend className="feature__name">
-            <label>{this.props.title}</label>
+            <label>{title}</label>
           </legend>
-          {this.props.options.map((option, idx) => (
+          {options.map((option, idx) => (
             <Options
               key={idx}
-              title={this.props.title}
+              title={title}
               id={idx}
               name={option.name}
               cost={option.cost}
+              format={format}
               // updateFeature={this.props.handleUpdate}
             />
           ))}

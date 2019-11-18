@@ -3,14 +3,10 @@ import "./Options.css";
 
 class Options extends Component {
   render() {
-    const { title, name, cost } = this.props;
-
+    const { title, name, cost, format } = this.props;
+    console.log(format);
     let id = this.props.id;
 
-    const USCurrencyFormat = new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD"
-    });
     return (
       <div key={id} className="feature__item">
         <input
@@ -18,11 +14,12 @@ class Options extends Component {
           className="feature__option"
           id={name}
           name={title}
-          checked="true"
+
+          // checked="true"
           // onClick={(title, id) => this.handleClick(title, id)}
         />
         <label htmlFor={name} className="feature__label">
-          {name} ({USCurrencyFormat.format(cost)})
+          {name} ({cost})
         </label>
       </div>
     );

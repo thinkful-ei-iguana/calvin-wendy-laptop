@@ -27,6 +27,7 @@ class App extends Component {
       }
     };
   }
+
   updateFeature = (feature, newValue) => {
     const selected = Object.assign({}, this.state.selected);
     selected[feature] = newValue;
@@ -34,12 +35,20 @@ class App extends Component {
       selected
     });
   };
+
   handleClick = (feature, newValue) => {
     this.setState({ selected: newValue });
     console.log(feature);
   };
+
   render() {
+    const USCurrencyFormat = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD"
+    });
+    console.log(USCurrencyFormat);
     const { features } = this.props;
+
     const featureTitle = Object.keys(features);
     const featureOptions = featureTitle.map(feature => features[feature]);
 
@@ -55,23 +64,26 @@ class App extends Component {
               <Features
                 key={idx}
                 id={idx}
-                title={featureTitle[idx]}
+                title={feature}
                 options={featureOptions[idx]}
                 className="feature__item"
                 checked={
                   featureOptions[idx].name === this.state.selected[feature].name
                 }
-                handleUpdate={(feature, newValue) =>
-                  this.updateFeature(feature, newValue)
-                }
+                format={USCurrencyFormat}
+                // handleUpdate={(feature, newValue) =>
+                //   this.updateFeature(feature, newValue)
+                // }
               />
             ))}
           </div>
+          <Cart
+            cartOptions={this.state.selected}
+            selectedOptions={Object.keys(this.state.selected)}
+            handleUpdate={() => this.updateFeature}
+            format={this.USCurrencyFormat}
+          />
         </main>
-        <Cart
-          defaultValues={this.state.selected}
-          handleUpdate={() => this.updateFeature}
-        />
       </div>
     );
   }
