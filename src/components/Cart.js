@@ -4,7 +4,7 @@ import "./Cart.css";
 class Cart extends Component {
   render() {
     const { features } = this.props;
-    console.log(features);
+
     const summaryList = features.map(feature => feature);
 
     return (

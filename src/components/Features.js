@@ -3,9 +3,6 @@ import Options from "./Options";
 import "./Features.css";
 
 class Features extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   // features = Object.keys(this.props.features).map((feature, idx) => {
   //   const featureHash = feature + "-" + idx;
   //   return this.features;
@@ -19,7 +16,13 @@ class Features extends React.Component {
             <label>{this.props.title}</label>
           </legend>
           {this.props.options.map((option, idx) => (
-            <Options key={idx} id={idx} name={option.name} cost={option.cost} />
+            <Options
+              key={idx}
+              title={this.props.title}
+              id={idx}
+              name={option.name}
+              cost={option.cost}
+            />
           ))}
         </fieldset>
       </form>
