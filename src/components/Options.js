@@ -1,29 +1,21 @@
-import React, { Component } from "react";
+import React from "react";
 import "./Options.css";
+import slugify from "slugify";
 
-class Options extends Component {
-  render() {
-    const { title, name, cost, format } = this.props;
-    console.log(format);
-    let id = this.props.id;
-
-    return (
-      <div key={id} className="feature__item">
-        <input
-          type="radio"
-          className="feature__option"
-          id={name}
-          name={title}
-
-          // checked="true"
-          // onClick={(title, id) => this.handleClick(title, id)}
-        />
-        <label htmlFor={name} className="feature__label">
-          {name} ({cost})
-        </label>
-      </div>
-    );
-  }
+export default function Options(props) {
+  return (
+    <div key={props.itemHash} className="feature__item">
+      <input
+        type="radio"
+        name={slugify(props.name)}
+        id={props.itemHash}
+        className="feature__option"
+        checked={props.option.name === props.selected[props.name].name}
+        onChange={e => props.handleUpdate(props.name, props.option)}
+      />
+      <label htmlFor={props.itemHash} className="feature__label">
+        {props.option.name} ({props.format.format(props.option.cost)})
+      </label>
+    </div>
+  );
 }
-
-export default Options;

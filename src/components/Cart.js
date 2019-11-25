@@ -3,7 +3,8 @@ import "./Cart.css";
 
 class Cart extends Component {
   render() {
-    const { cartOptions, selectedOptions } = this.props;
+    console.log("props in Cart", this.props);
+    const { cartOptions, selectedOptions, format } = this.props;
     const total = selectedOptions.reduce(
       (acc, curr) => acc + cartOptions[curr].cost,
       0
@@ -12,21 +13,19 @@ class Cart extends Component {
     return (
       <section className="main__summary">
         <h2>Your cart</h2>
-        <div className="summary__option" key="key value"></div>
+        <div className="summary__option__label" key="key value"></div>
         {selectedOptions.map(label => (
           <div className="summary__option__label" key={label}>
             {label}
-            <div className="summary__option__value">
-              {cartOptions[label].name}
-            </div>
+            <div className="summary__option">{cartOptions[label].name}</div>
             <div className="summary__option__cost">
-              {cartOptions[label].cost}
+              {format.format(cartOptions[label].cost)}
             </div>
           </div>
         ))}
         <div className="summary__total">
           <div className="summary__total__label">Total</div>
-          <div className="summary__total__value">{total}</div>
+          <div className="summary__total__value">{format.format(total)}</div>
         </div>
       </section>
     );
@@ -34,8 +33,3 @@ class Cart extends Component {
 }
 
 export default Cart;
-
-// newSelected = handleUpdate
-// onClick = (option) => {
-// this.setState( { selected: newSelected})
-// }

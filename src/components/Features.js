@@ -1,37 +1,30 @@
 import React from "react";
+import slugify from "slugify";
 import Options from "./Options";
 import "./Features.css";
 
-class Features extends React.Component {
-  // features = Object.keys(this.props.features).map((feature, idx) => {
-  //   const featureHash = feature + "-" + idx;
-  //   return this.features;
-  // });
-
-  render() {
-    const { title, options, format } = this.props;
-    console.log(format);
+export default function Features(props) {
+  const options = props.feature.map(option => {
+    const itemHash = slugify(JSON.stringify(option));
     return (
-      <form className="main__form">
-        <fieldset className="feature" key={this.title}>
-          <legend className="feature__name">
-            <label>{title}</label>
-          </legend>
-          {options.map((option, idx) => (
-            <Options
-              key={idx}
-              title={title}
-              id={idx}
-              name={option.name}
-              cost={option.cost}
-              format={format}
-              // updateFeature={this.props.handleUpdate}
-            />
-          ))}
-        </fieldset>
-      </form>
+      <Options
+        key={itemHash}
+        itemHash={itemHash}
+        name={props.name}
+        option={option}
+        selected={props.selected}
+        handleUpdate={props.handleUpdate}
+        format={props.format}
+      />
     );
-  }
-}
+  });
 
-export default Features;
+  return (
+    <fieldset className="feature" key={props.featureHash}>
+      <legend className="feature__name">
+        <h3>{props.name}</h3>
+      </legend>
+      {options}
+    </fieldset>
+  );
+}

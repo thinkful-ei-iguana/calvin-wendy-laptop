@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import Features from "./components/Features";
+import MainForm from "./components/MainForm";
 import Cart from "./components/Cart";
 
 class App extends Component {
@@ -28,59 +28,38 @@ class App extends Component {
     };
   }
 
+  USCurrencyFormat = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD"
+  });
+
   updateFeature = (feature, newValue) => {
+    console.log("feature:", feature, "newValue:", newValue);
     const selected = Object.assign({}, this.state.selected);
     selected[feature] = newValue;
     this.setState({
       selected
     });
   };
-
-  handleClick = (feature, newValue) => {
-    this.setState({ selected: newValue });
-    console.log(feature);
-  };
-
   render() {
-    const USCurrencyFormat = new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD"
-    });
-    console.log(USCurrencyFormat);
     const { features } = this.props;
-
-    const featureTitle = Object.keys(features);
-    const featureOptions = featureTitle.map(feature => features[feature]);
 
     return (
       <div className="App">
         <header>
           <h1>ELF Computing | Laptops</h1>
         </header>
-        <h2>Customize your laptop!!!</h2>
         <main>
-          <div className="feature__label">
-            {featureTitle.map((feature, idx) => (
-              <Features
-                key={idx}
-                id={idx}
-                title={feature}
-                options={featureOptions[idx]}
-                className="feature__item"
-                checked={
-                  featureOptions[idx].name === this.state.selected[feature].name
-                }
-                format={USCurrencyFormat}
-                // handleUpdate={(feature, newValue) =>
-                //   this.updateFeature(feature, newValue)
-                // }
-              />
-            ))}
-          </div>
+          <MainForm
+            features={features}
+            handleUpdate={this.updateFeature}
+            format={this.USCurrencyFormat}
+            selected={this.state.selected}
+          />
+
           <Cart
             cartOptions={this.state.selected}
             selectedOptions={Object.keys(this.state.selected)}
-            handleUpdate={() => this.updateFeature}
             format={this.USCurrencyFormat}
           />
         </main>
